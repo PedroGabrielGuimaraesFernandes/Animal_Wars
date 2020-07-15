@@ -81,9 +81,11 @@
     <Compile Include="Assets\CodeMonkey\Utils\World_Bar.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Mesh.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Sprite.cs" />
+    <Compile Include="Assets\GridMap\Scripts\MeshUtils.cs" />
     <Compile Include="Assets\PedroTools\Tools\UsefulFunctions.cs" />
     <Compile Include="Assets\Scripts\Level Builder\ColorToPrefab.cs" />
     <Compile Include="Assets\Scripts\Level Builder\Grid.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\HeatMapVisual.cs" />
     <Compile Include="Assets\Scripts\Level Builder\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Level Builder\Testing.cs" />
     <Compile Include="Assets\Scripts\Movement\TileMovController.cs" />

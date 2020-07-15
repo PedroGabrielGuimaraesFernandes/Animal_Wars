@@ -25,6 +25,27 @@ namespace PedroG.UsefulFuncs
             return CreateWorldText(parent, text, localPosition, fontSize, (Color)color, textAnchor, textAlignment, sortingOrder);
         }
 
+        // Get Mouse Position in World with Z = 0f use for 2D
+        public static Vector3 GetMouseWorldPosition()
+        {
+            Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+            vec.z = 0f;
+            return vec;
+        }
+        public static Vector3 GetMouseWorldPositionWithZ()
+        {
+            return GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
+        }
+        public static Vector3 GetMouseWorldPositionWithZ(Camera worldCamera)
+        {
+            return GetMouseWorldPositionWithZ(Input.mousePosition, worldCamera);
+        }
+        public static Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
+        {
+            Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
+            return worldPosition;
+        }
+
         //Cria um Text no algum lugar do mundo(usada pela de cima)
         public static TextMesh CreateWorldText(Transform parent, string text, Vector3 localposition, int fontSize, Color color, TextAnchor textAnchor, TextAlignment textAlignment, int sortingOrder) {
             //Cria um novo objetocom um componet TextMesh, com o nome de World Text
