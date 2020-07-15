@@ -9,6 +9,7 @@ public class HeatMapVisual : MonoBehaviour
     //Referencia ao grid que vai ser usado
     private Grid grid;
     private Mesh mesh;
+    public bool updateMesh;
 
     public void Awake()
     {
@@ -17,10 +18,27 @@ public class HeatMapVisual : MonoBehaviour
         GetComponent<MeshFilter>().mesh = mesh;
     }
 
+    private void LateUpdate()
+    {
+        if (updateMesh)
+        {
+            updateMesh = false;
+            UpdateHeatMapVisual();
+        }
+    }
+
     public void SetGrid(Grid grid)
     {
         this.grid = grid;
         UpdateHeatMapVisual();
+
+        grid.OnGridCellValueChanged += Grid_OnGridCellValueChanged;
+    }
+
+    public void Grid_OnGridCellValueChanged(object sender, Grid.OnGridCellValueChangedEventArgs e)
+    {
+        //UpdateHeatMapVisual();
+        updateMesh = true;
     }
 
     private void UpdateHeatMapVisual()
@@ -34,7 +52,12 @@ public class HeatMapVisual : MonoBehaviour
                 int index = x * grid.GetHeight() + y;
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize(); ;
 
-                MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, Vector2.zero, Vector2.zero);
+                // Pegar o valor do grid alterado
+                int gridValue = grid.GetValue(x, y);
+                // Fao calculo da porcentagem do valor equivalente
+                float gridValueNormalized = (float)gridValue / Grid.HEAT_MAP_MAX_VALUE;
+                Vector2 gridValueUv = new Vector2(gridValueNormalized, 0f);
+                MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, gridValueUv, gridValueUv);
             }
         }
 

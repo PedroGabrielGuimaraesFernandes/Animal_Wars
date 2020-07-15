@@ -21,20 +21,21 @@ public class Grid {
     public int height;
     private float cellSize;
     public Vector3 originPosition;
-    public int[,] gridArray;    
+    public int[,] gridArray;
+    bool showDebug = true;
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, bool showDebug)
     {
         //Definimos a largura, a altura e o tamnho da celula
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
+        this.showDebug = showDebug;
 
         // Passamos a largura e a altura para o grid 
         gridArray = new int[width, height];
-
-        bool showDebug = true;
+        
         if (showDebug)
         {
             TextMesh[,] debugTextArray = new TextMesh[width, height];
@@ -61,10 +62,6 @@ public class Grid {
         }
     }
 
-    /*private void Grid_OnGridCellValueChanged(object sender, EventArgs e)
-    {
-        
-    }*/
 
     public int GetWidth()
     {
@@ -113,6 +110,11 @@ public class Grid {
         SetValue(x, y, value);
     }
 
+    public void AddValue(int x, int y, int value)
+    {
+        SetValue(x, y, GetValue(x, y) + value);
+    }
+
     public int GetValue(int x, int y)
     {
         if(x >= 0 && y >= 0 && x < width && y < height)
@@ -130,5 +132,35 @@ public class Grid {
         int x, y;
         GetXY(worldPosition, out x, out y);
         return GetValue(x, y);
+    }
+
+    public void AddValue(Vector3 worldPosition, int value, int fullValueRange, int totalRange)
+    {
+        int lowerValueAmount = Mathf.RoundToInt((float)value / (totalRange - fullValueRange));
+
+        GetXY(worldPosition, out int originX, out int originY);
+        for (int x = 0; x < totalRange; x++)
+        {
+            for (int y = 0; y < totalRange - x; y++)
+            {
+                int radius = x + y;
+                int addValueAmount = value;
+                if(radius > fullValueRange)
+                {
+                    addValueAmount -= lowerValueAmount * (radius - fullValueRange); 
+                }
+                //Superior direito
+                AddValue(originX + x, originY + y, addValueAmount);
+                //Superior esquerdo
+                if(x != 0)
+                AddValue(originX - x, originY + y, addValueAmount);
+                //Inferior direito
+                if(y != 0)
+                AddValue(originX + x, originY - y, addValueAmount);
+                //Inferior esquerdo
+                if(x != 0 && y != 0)
+                AddValue(originX - x, originY - y, addValueAmount);
+            }
+        }
     }
 }

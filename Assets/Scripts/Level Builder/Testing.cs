@@ -8,10 +8,11 @@ public class Testing : MonoBehaviour
 {
     [SerializeField] private HeatMapVisual heatMapVisual;
     private Grid grid;
+    public bool showDebug = true;
     // Start is called before the first frame update
     void Start()
     {
-        grid = new Grid(10, 10, 10f, new Vector3(0,0));
+        grid = new Grid(100, 100, 4f, new Vector3(0,0), showDebug);
 
         heatMapVisual.SetGrid(grid);
     }
@@ -25,8 +26,7 @@ public class Testing : MonoBehaviour
             /*mousePos = Input.mousePosition;            
             worldPos = Camera.main.ScreenToWorldPoint(mousePos);*/
             worldPos = UsefulFunctions.GetMouseWorldPosition();
-            int value = grid.GetValue(worldPos);
-            grid.SetValue(worldPos, value + 5);            
+            grid.AddValue(worldPos, 100, 5, 40);          
         }
 
         if (Input.GetMouseButtonDown(1))
