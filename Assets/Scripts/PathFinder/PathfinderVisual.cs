@@ -4,10 +4,10 @@ using UnityEngine;
 using CodeMonkey.Utils;
 using CodeMonkey.MonoBehaviours;
 
-public class HeatMapVisual : MonoBehaviour
+public class PathfinderVisual : MonoBehaviour
 {
     //Referencia ao grid que vai ser usado
-    private Grid grid;
+    private Grid<PathNode> grid;
     private Mesh mesh;
     public bool updateMesh;
 
@@ -23,25 +23,24 @@ public class HeatMapVisual : MonoBehaviour
         if (updateMesh)
         {
             updateMesh = false;
-            UpdateHeatMapVisual();
+            UpdateNodeVisual();
         }
     }
 
-    public void SetGrid(Grid grid)
+    public void SetGrid(Grid<PathNode> grid)
     {
         this.grid = grid;
-        UpdateHeatMapVisual();
+        UpdateNodeVisual();
 
         grid.OnGridCellValueChanged += Grid_OnGridCellValueChanged;
     }
 
-    public void Grid_OnGridCellValueChanged(object sender, Grid.OnGridCellValueChangedEventArgs e)
+    public void Grid_OnGridCellValueChanged(object sender, Grid<PathNode>.OnGridCellValueChangedEventArgs e)
     {
-        //UpdateHeatMapVisual();
         updateMesh = true;
     }
 
-    private void UpdateHeatMapVisual()
+    private void UpdateNodeVisual()
     {
         MeshUtils.CreateEmptyMeshArrays(grid.GetWidth() * grid.GetHeight(), out Vector3[] vertices, out Vector2[] uv, out int[] triangles);
 
@@ -53,9 +52,14 @@ public class HeatMapVisual : MonoBehaviour
                 Vector3 quadSize = new Vector3(1, 1) * grid.GetCellSize(); ;
 
                 // Pegar o valor do grid alterado
-                int gridValue = grid.GetValue(x, y);
-                // Fao calculo da porcentagem do valor equivalente
-                float gridValueNormalized = (float)gridValue / Grid.HEAT_MAP_MAX_VALUE;
+                PathNode gridNode = grid.GetGridObject(x, y);
+
+                /*if (gridNode.isWalkable)
+                {
+                    quadSize = Vector3.zero;
+                }*/
+                // True = 1, false = 0
+                float gridValueNormalized = gridNode.isWalkable ? 1f : 0f;
                 Vector2 gridValueUv = new Vector2(gridValueNormalized, 0f);
                 MeshUtils.AddToMeshArrays(vertices, uv, triangles, index, grid.GetWorldPosition(x, y) + quadSize * .5f, 0f, quadSize, gridValueUv, gridValueUv);
             }

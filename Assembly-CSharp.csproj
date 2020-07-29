@@ -82,35 +82,67 @@
     <Compile Include="Assets\CodeMonkey\Utils\World_Mesh.cs" />
     <Compile Include="Assets\CodeMonkey\Utils\World_Sprite.cs" />
     <Compile Include="Assets\GridMap\Scripts\MeshUtils.cs" />
+    <Compile Include="Assets\PedroTools\Tools\EnumHelper.cs" />
     <Compile Include="Assets\PedroTools\Tools\UsefulFunctions.cs" />
+    <Compile Include="Assets\Scripts\Grid\Grid.cs" />
+    <Compile Include="Assets\Scripts\Grid\HeatMapBoolVisual.cs" />
+    <Compile Include="Assets\Scripts\Grid\HeatMapGenericVisual.cs" />
+    <Compile Include="Assets\Scripts\Grid\HeatMapVisual.cs" />
+    <Compile Include="Assets\Scripts\Grid\Testing.cs" />
     <Compile Include="Assets\Scripts\Level Builder\ColorToPrefab.cs" />
-    <Compile Include="Assets\Scripts\Level Builder\Grid.cs" />
-    <Compile Include="Assets\Scripts\Level Builder\HeatMapVisual.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\EmTeste\SaveLevel.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\EmTeste\TestingTilemap.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\EmTeste\TileGridInteraction.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\EmTeste\Tilemap.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\EmTeste\TilemapVisual.cs" />
     <Compile Include="Assets\Scripts\Level Builder\LevelGenerator.cs" />
-    <Compile Include="Assets\Scripts\Level Builder\Testing.cs" />
+    <Compile Include="Assets\Scripts\Level Builder\Tile.cs" />
     <Compile Include="Assets\Scripts\Movement\TileMovController.cs" />
+    <Compile Include="Assets\Scripts\PathFinder\PathfinderVisual.cs" />
+    <Compile Include="Assets\Scripts\PathFinder\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\PathFinder\PathNode.cs" />
+    <Compile Include="Assets\Scripts\PathFinder\TestingPathfinder.cs" />
+    <Compile Include="Assets\Scripts\UI\LevelBuilderUI.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\PedroTools\README.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\CodeMonkey\README.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -296,13 +328,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/pedro/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Pichau/Documents/Animal Wars Project/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.8f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

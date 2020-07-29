@@ -5,7 +5,7 @@ using UnityEngine;
 //using CodeMonkey.Utils;
 using PedroG.UsefulFuncs;
 
-public class Grid {
+public class Grid<TGridObject> {
 
     public const int HEAT_MAP_MAX_VALUE = 100;
     public const int HEAT_MAP_MIN_VALUE = 0;
@@ -21,10 +21,10 @@ public class Grid {
     public int height;
     private float cellSize;
     public Vector3 originPosition;
-    public int[,] gridArray;
+    public TGridObject[,] gridArray;
     bool showDebug = true;
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition, bool showDebug)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject, bool showDebug)
     {
         //Definimos a largura, a altura e o tamnho da celula
         this.width = width;
@@ -34,8 +34,17 @@ public class Grid {
         this.showDebug = showDebug;
 
         // Passamos a largura e a altura para o grid 
-        gridArray = new int[width, height];
-        
+        gridArray = new TGridObject[width, height];
+
+        for (int gridX = 0; gridX < gridArray.GetLength(0); gridX++)
+        {
+            //passa por todos os elementos de linha dentro da coluna
+            for (int gridY = 0; gridY < gridArray.GetLength(1); gridY++)
+            {
+                gridArray[gridX, gridY] = createGridObject(this, gridX, gridY);
+            }
+        }
+
         if (showDebug)
         {
             TextMesh[,] debugTextArray = new TextMesh[width, height];
@@ -47,7 +56,7 @@ public class Grid {
                 for (int gridY = 0; gridY < gridArray.GetLength(1); gridY++)
                 {
                     //Cria dento da celula correspondente o texto e arruma ele para ficar no seu centro
-                    debugTextArray[gridX, gridY] = UsefulFunctions.CreateWorldText(gridArray[gridX, gridY].ToString(), null, GetWorldPosition(gridX, gridY) + new Vector3(cellSize, cellSize) * .5f, 20, Color.white, TextAnchor.MiddleCenter);
+                    debugTextArray[gridX, gridY] = UsefulFunctions.CreateWorldText(gridArray[gridX, gridY]?.ToString(), null, GetWorldPosition(gridX, gridY) + new Vector3(cellSize, cellSize) * .5f, 20, Color.white, TextAnchor.MiddleCenter);
                     Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX + 1, gridY), Color.white, 100f);
                     Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX, gridY + 1), Color.white, 100f);
                 }
@@ -57,11 +66,10 @@ public class Grid {
 
             OnGridCellValueChanged += (object sender, OnGridCellValueChangedEventArgs eventArgs) =>
             {
-                debugTextArray[eventArgs.gridX, eventArgs.gridY].text = gridArray[eventArgs.gridX, eventArgs.gridY].ToString();
+                debugTextArray[eventArgs.gridX, eventArgs.gridY].text = gridArray[eventArgs.gridX, eventArgs.gridY]?.ToString();
             };
         }
     }
-
 
     public int GetWidth()
     {
@@ -84,7 +92,7 @@ public class Grid {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
-    private void GetXY(Vector3 worldPosition, out int x, out int y)
+    public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         //Se o cellsize for 10 então tudo de 0 a 10 sera dentro do grid 0, de 10 a 20 sera no grid 1...
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
@@ -92,30 +100,30 @@ public class Grid {
     }
 
     //Altera o valor de uma celula especifica para o valor mandado
-    public void SetValue(int x, int y, int value)
+    public void SetGridObject(int x, int y, TGridObject value)
     {
         //Garante que o número é valido
         if (x >= 0 && y >= 0 && x < width && y < height)
         {
-            gridArray[x, y] = Mathf.Clamp(value,HEAT_MAP_MIN_VALUE, HEAT_MAP_MAX_VALUE);
+            gridArray[x, y] = value;
             //if (OnGridCellValueChanged != null) OnGridCellValueChanged(this, new OnGridCellValueChangedEventArgs { gridX = x, gridY = y });
             OnGridCellValueChanged?.Invoke(this, new OnGridCellValueChangedEventArgs { gridX = x, gridY = y });
         }
     }
 
-    public void SetValue(Vector3 worldPosition, int value)
+    public void TriggerGridObjectChanged(int x, int y)
+    {
+        OnGridCellValueChanged?.Invoke(this, new OnGridCellValueChangedEventArgs { gridX = x, gridY = y });
+    }
+
+    public void SetGridObject(Vector3 worldPosition, TGridObject value)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
-        SetValue(x, y, value);
+        SetGridObject(x, y, value);
     }
 
-    public void AddValue(int x, int y, int value)
-    {
-        SetValue(x, y, GetValue(x, y) + value);
-    }
-
-    public int GetValue(int x, int y)
+    public TGridObject GetGridObject(int x, int y)
     {
         if(x >= 0 && y >= 0 && x < width && y < height)
         {
@@ -123,44 +131,16 @@ public class Grid {
         }
         else
         {
-            return 0;
+            return default(TGridObject);
         }
     }
 
-    public int GetValue(Vector3 worldPosition)
+    public TGridObject GetGridObject(Vector3 worldPosition)
     {
         int x, y;
         GetXY(worldPosition, out x, out y);
-        return GetValue(x, y);
+        return GetGridObject(x, y);
     }
 
-    public void AddValue(Vector3 worldPosition, int value, int fullValueRange, int totalRange)
-    {
-        int lowerValueAmount = Mathf.RoundToInt((float)value / (totalRange - fullValueRange));
-
-        GetXY(worldPosition, out int originX, out int originY);
-        for (int x = 0; x < totalRange; x++)
-        {
-            for (int y = 0; y < totalRange - x; y++)
-            {
-                int radius = x + y;
-                int addValueAmount = value;
-                if(radius > fullValueRange)
-                {
-                    addValueAmount -= lowerValueAmount * (radius - fullValueRange); 
-                }
-                //Superior direito
-                AddValue(originX + x, originY + y, addValueAmount);
-                //Superior esquerdo
-                if(x != 0)
-                AddValue(originX - x, originY + y, addValueAmount);
-                //Inferior direito
-                if(y != 0)
-                AddValue(originX + x, originY - y, addValueAmount);
-                //Inferior esquerdo
-                if(x != 0 && y != 0)
-                AddValue(originX - x, originY - y, addValueAmount);
-            }
-        }
-    }
+   
 }
