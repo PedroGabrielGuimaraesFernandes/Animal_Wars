@@ -84,6 +84,10 @@
     <Compile Include="Assets\GridMap\Scripts\MeshUtils.cs" />
     <Compile Include="Assets\PedroTools\Tools\EnumHelper.cs" />
     <Compile Include="Assets\PedroTools\Tools\UsefulFunctions.cs" />
+    <Compile Include="Assets\SaveLoad\Scripts\GameHandler.cs" />
+    <Compile Include="Assets\SaveLoad\Scripts\IUnit.cs" />
+    <Compile Include="Assets\SaveLoad\Scripts\SaveSystem.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraController2D.cs" />
     <Compile Include="Assets\Scripts\Grid\Grid.cs" />
     <Compile Include="Assets\Scripts\Grid\HeatMapBoolVisual.cs" />
     <Compile Include="Assets\Scripts\Grid\HeatMapGenericVisual.cs" />
@@ -103,6 +107,9 @@
     <Compile Include="Assets\Scripts\PathFinder\PathNode.cs" />
     <Compile Include="Assets\Scripts\PathFinder\TestingPathfinder.cs" />
     <Compile Include="Assets\Scripts\UI\LevelBuilderUI.cs" />
+    <Compile Include="Assets\Scripts\UI\PreviewTileImage.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_InputWindow.cs" />
+    <Compile Include="Assets\Scripts\UI\UI_InputWindowManager.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\PedroTools\README.txt" />

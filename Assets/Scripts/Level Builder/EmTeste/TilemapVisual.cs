@@ -33,7 +33,7 @@ public class TilemapVisual : MonoBehaviour
         }
     }
 
-    public void SetGrid(Grid<Tile> grid)
+    public void SetGrid(Tilemap tilemap, Grid<Tile> grid)
     {
         this.grid = grid;
         //totalCellCount = this.grid.GetWidth() * this.grid.GetHeight();
@@ -41,9 +41,15 @@ public class TilemapVisual : MonoBehaviour
         UpdateNodeVisual();
 
         grid.OnGridCellValueChanged += Grid_OnGridCellValueChanged;
+        tilemap.OnLoaded += Grid_OnGridLoaded;
     }
 
     public void Grid_OnGridCellValueChanged(object sender, Grid<Tile>.OnGridCellValueChangedEventArgs e)
+    {
+        updateMesh = true;
+    }
+
+    private void Grid_OnGridLoaded(object sender, EventArgs e)
     {
         updateMesh = true;
     }
@@ -83,7 +89,7 @@ public class TilemapVisual : MonoBehaviour
                 Tile currentTile = grid.GetGridObject(x, y);
                 if (tileTypesList.Count < totalCellCount)
                 {
-                    tileTypesList.Add(Tile.TileType.Vazio);
+                    tileTypesList.Add(Tile.TileType.Planice);
                     int enumIndex = (int)currentTile.tileType;
                     GameObject tileObject = Instantiate(tilesPrefab[enumIndex], grid.GetWorldPosition(x, y) + quadSize * .5f, Quaternion.identity);
                     tileObject.transform.localScale = new Vector3(tileObject.transform.localScale.x * grid.GetCellSize(), tileObject.transform.localScale.y * grid.GetCellSize(), 1);

@@ -20,7 +20,7 @@ public class TestingTilemap : MonoBehaviour
 
         tilemap = new Tilemap(width, height, cellSize, Vector3.zero, showDebug);
 
-        tilemapVisual.SetGrid(tilemap.GetGrid());
+        tilemapVisual.SetGrid(tilemap, tilemap.GetGrid());
     }
 
     private void Update()
