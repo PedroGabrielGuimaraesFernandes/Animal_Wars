@@ -14,6 +14,7 @@ public class PreviewTileImage : MonoBehaviour
     [SerializeField]private TextMeshProUGUI previewText;
     private Image previewTileImage;
     public Sprite[] previewSprite;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,13 @@ public class PreviewTileImage : MonoBehaviour
             tileIndex = tileGridInteraction.selectedTileIndex;
             previewText.text = Enum.GetName(typeof(Tile.TileType), tileIndex);
             previewTileImage.sprite = previewSprite[tileIndex];
+        }
+
+        if (tileGridInteraction.rotatePreview)
+        {
+            tileGridInteraction.rotatePreview = false;
+            previewTileImage.rectTransform.rotation = Quaternion.identity;
+            previewTileImage.transform.Rotate(0, 0, 90 * tileGridInteraction.rotValue);
         }
     }
 }

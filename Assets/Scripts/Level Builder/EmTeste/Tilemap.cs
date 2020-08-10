@@ -6,14 +6,18 @@ using PedroG.UsefulFuncs;
 
 public class Tilemap
 {
+    private static Tilemap instance;
+
     public EventHandler OnLoaded;
 
     private Grid<Tile> tileGrid;
 
 
+
     public Tilemap(int width, int height, int cellSize, Vector3 origin, bool showDebug)
     {
         tileGrid = new Grid<Tile>(width, height, cellSize, origin, (Grid<Tile> g, int x, int y) => new Tile(g, x, y), showDebug);
+        instance = this;
     }
 
     public Grid<Tile> GetGrid()
@@ -28,7 +32,19 @@ public class Tilemap
             tilemapObject.SetTileType(tipeType);
     }
 
-    public void Save()
+    public void SetTilemapObjectRotation(Vector3 worldPos, int tileRot)
+    {
+        Tile tilemapObject = tileGrid.GetGridObject(worldPos);
+        tileGrid.GetXY(worldPos, out int x, out int y);
+        tileGrid.TriggerGridObjectChanged(x, y);
+       /* if (tilemapObject.tileRotation < 3)
+            tilemapObject.tileRotation++;
+        else
+            tilemapObject.tileRotation = 0;*/
+        tilemapObject.SetTileRotation(tileRot);
+    }
+
+    public void Save(string filename, bool overwrite)
     {
         List<Tile.SaveObject> tileSaveObjectList = new List<Tile.SaveObject>();
         for (int x = 0; x < tileGrid.GetWidth(); x++)
@@ -41,13 +57,15 @@ public class Tilemap
         }
 
         SaveObject saveObject = new SaveObject { tileSaveObjectArray = tileSaveObjectList.ToArray()};
-
-        SaveSystem.SaveObject(saveObject);
+        //if(filename.Length >= 1)
+        SaveSystem.SaveObject(filename, saveObject, overwrite);
+        //else 
     }
 
-    public void Load()
+    public void Load(string filename)
     {
-        SaveObject saveObject = SaveSystem.LoadMostRecentSaveObject<SaveObject>();
+        //SaveObject saveObject = SaveSystem.LoadMostRecentSaveObject<SaveObject>();
+        SaveObject saveObject = SaveSystem.LoadObject<SaveObject>(filename);
         foreach (Tile.SaveObject tileSaveObject in saveObject.tileSaveObjectArray)
         {
             Tile tile = tileGrid.GetGridObject(tileSaveObject.x, tileSaveObject.y);
@@ -63,6 +81,21 @@ public class Tilemap
     }
 
    
+    public static void Static_Save(string filename)
+    {
+        instance.Save(filename, false);
+    }
+
+    public static void Static_Save_Overwrite(string filename)
+    {
+        instance.Save(filename, true);
+    }
+
+    public static void  Static_Load(string filename)
+    {
+        instance.Load(filename);
+    }
+
 }
 
 

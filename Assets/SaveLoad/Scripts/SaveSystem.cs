@@ -19,24 +19,37 @@ public static class SaveSystem
 {
 
     private static bool isInit;
+    private static bool useNewSavePath = false;
 
     private static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
     private const string SAVE_EXTENSION = "txt";
+    public static string newSavePath;
 
     public static void Init()
     {
         if (!isInit)
         {
-            isInit = true;
-                Debug.Log("Checou");
+            isInit = true;                
             // Test if Save Folder exists
             if (!Directory.Exists(SAVE_FOLDER))
             {
-                Debug.Log("Criou");
+                
                 // Create Save Folder
                 Directory.CreateDirectory(SAVE_FOLDER);
             }
         }
+    }
+
+    public static void SetSavePath(string saveFolder)
+    {
+        newSavePath = saveFolder;
+        // Test if Save Folder exists
+        if (!Directory.Exists(newSavePath))
+        {
+            // Create Save Folder
+            Directory.CreateDirectory(newSavePath);
+        }
+        useNewSavePath = true;
     }
 
     public static void Save(string fileName, string saveString, bool overwrite)
@@ -47,8 +60,13 @@ public static class SaveSystem
         {
             // Make sure the Save Number is unique so it doesnt overwrite a previous save file
             int saveNumber = 1;
-            Debug.Log("Overwrite");
-            while (File.Exists(SAVE_FOLDER + saveFileName + "." + SAVE_EXTENSION))
+
+            string savePath;
+            if (useNewSavePath)
+                savePath = newSavePath;
+            else
+                savePath = SAVE_FOLDER;
+            while (File.Exists(savePath + saveFileName + "." + SAVE_EXTENSION))
             {
                 saveNumber++;
                 saveFileName = fileName + " " + saveNumber;
@@ -62,8 +80,14 @@ public static class SaveSystem
     public static string Load(string fileName)
     {
         Init();
+
+        string savePath;
+        if (useNewSavePath)
+            savePath = newSavePath;
+        else
+            savePath = SAVE_FOLDER;
         // If theres a save file, load it, if not return null
-        if (File.Exists(SAVE_FOLDER + fileName + "." + SAVE_EXTENSION))
+        if (File.Exists(savePath + fileName + "." + SAVE_EXTENSION))
         {
             string saveString = File.ReadAllText(SAVE_FOLDER + fileName + "." + SAVE_EXTENSION);
             return saveString;
@@ -109,9 +133,13 @@ public static class SaveSystem
         }
     }
 
-    public static void SaveObject(object saveObject)
+    public static void SaveObject(string docName, object saveObject)
     {
         //Init();
+        if (docName.Length >= 1)
+
+        SaveObject(docName, saveObject, false);
+            else
         SaveObject("save", saveObject, false);
     }
 
@@ -119,7 +147,7 @@ public static class SaveSystem
     {
         Init();
         string json = JsonUtility.ToJson(saveObject);
-        Save(filename, json, false);
+        Save(filename, json, overwrite);
     }
 
     public static TSaveObject LoadObject<TSaveObject>(string fileName){

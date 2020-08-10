@@ -49,6 +49,8 @@ public class UI_InputWindow : MonoBehaviour
     private  void Show(string titleString, string inputString, string validCharacters, int characterLimit, Action OnCancel, Action<String> OnConfirm)
     {
         gameObject.SetActive(true);
+        transform.SetAsLastSibling();
+        textInput.text = inputString;
         textInput.Select();
         textInput.characterLimit = characterLimit;
 
@@ -84,5 +86,24 @@ public class UI_InputWindow : MonoBehaviour
     public static void Show_Static(string titleString, string inputString, string validCharacters, int characterLimit, Action OnCancel, Action<String> OnConfirm)
     {
         instance.Show(titleString, inputString, validCharacters, characterLimit, OnCancel, OnConfirm);
+    }
+
+
+    public static void Show_Static(string titleString, int defaultInt, Action onCancel, Action<int> onConfirm)
+    {
+        instance.Show(titleString, defaultInt.ToString(), Numbers, 20, onCancel,
+            (string inputText) =>
+            {
+                //Try to parse the inputText(String => int)
+                if (int.TryParse(inputText, out int _i))
+                {
+                    onConfirm(_i);
+                }
+                else
+                {
+                    onConfirm(defaultInt);
+                }
+
+            });
     }
 }

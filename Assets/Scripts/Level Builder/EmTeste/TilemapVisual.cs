@@ -92,7 +92,7 @@ public class TilemapVisual : MonoBehaviour
                     tileTypesList.Add(Tile.TileType.Planice);
                     int enumIndex = (int)currentTile.tileType;
                     GameObject tileObject = Instantiate(tilesPrefab[enumIndex], grid.GetWorldPosition(x, y) + quadSize * .5f, Quaternion.identity);
-                    tileObject.transform.localScale = new Vector3(tileObject.transform.localScale.x * grid.GetCellSize(), tileObject.transform.localScale.y * grid.GetCellSize(), 1);
+                    tileObject.transform.localScale = new Vector3(tileObject.transform.localScale.x * grid.GetCellSize(), tileObject.transform.localScale.y * grid.GetCellSize(), 1);                    
                     tileObjects[listIndex] = tileObject;
                 }
                 //Debug.Log("tileTypesList.Count = " + tileTypesList.Count + ", totalCellCount = " + totalCellCount.ToString());
@@ -101,8 +101,9 @@ public class TilemapVisual : MonoBehaviour
 
                     tileTypesList[listIndex] = currentTile.tileType;
                     int enumIndex = (int)currentTile.tileType;
-                    GameObject tileObject = Instantiate(tilesPrefab[enumIndex], grid.GetWorldPosition(x, y) + quadSize * .5f, Quaternion.identity);
+                    GameObject tileObject = Instantiate(tilesPrefab[enumIndex], grid.GetWorldPosition(x, y) + quadSize * .5f, Quaternion.Euler(0, 0, 90 * currentTile.tileRotation));
                     tileObject.transform.localScale = new Vector3(tileObject.transform.localScale.x * grid.GetCellSize(), tileObject.transform.localScale.y * grid.GetCellSize(), 1);
+                    tileObject.transform.rotation = Quaternion.Euler(0, 0, 90 * currentTile.tileRotation);
                     if (tileObjects[listIndex] != null)
                         Destroy(tileObjects[listIndex]);
                     tileObjects[listIndex] = tileObject;

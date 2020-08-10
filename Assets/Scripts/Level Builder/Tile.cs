@@ -14,6 +14,7 @@ public class Tile
     public enum TileType { Planice, Floresta, Montanha, Cidade, Estrada, Ponte, Pantano, BaseMilitar, Aeroporto, POrto, Oceano, Praia, Recife, Marbravo, Ruinas, TerraDevastada };
     public TileType tileType;
 
+    public int tileRotation;
     //public string tileName = "Vazio";
     //public Sprite tileSprite;
     //public string specialEffect = "Vazio";
@@ -25,6 +26,7 @@ public class Tile
         this.grid = tileGrid;
         this.x = x;
         this.y = y;
+
         /*this.tileType = tileType;
         this.tileName = tileName;
         this.tileSprite = tileSprite;
@@ -41,6 +43,12 @@ public class Tile
 
     }
 
+    public void SetTileRotation(int rot)
+    {
+        this.tileRotation = rot;
+        grid.TriggerGridObjectChanged(x, y);
+    }
+
 
 
     public override string ToString()
@@ -52,6 +60,7 @@ public class Tile
     public TileType tileType;
     public int x;
     public int y;
+    public int tileRotation;
         }
 
     public SaveObject Save()
@@ -61,11 +70,13 @@ public class Tile
             tileType = tileType,
             x = x,
             y = y,
+            tileRotation = tileRotation,
         };
     }
 
     public void Load(SaveObject saveObject)
     {
         SetTileType(saveObject.tileType);
+        SetTileRotation(saveObject.tileRotation);
     }
 }
