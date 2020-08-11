@@ -7,6 +7,8 @@ public class BasicUnit : MonoBehaviour
 {    
     [Header("Nome da unidade")] public string unitName;
     [Header("Descrição do papel da unidade")] public string unitDescription;
+    [Header("Custo da unidade")] public string unitCost;
+    private int unitHP;
 
     public enum UnitType { Infantary, WarMachine, Air, Nav};
     [Header("Tipo da unidade")]
@@ -48,9 +50,11 @@ public class BasicUnit : MonoBehaviour
     public UnitVSUnit vsAir = UnitVSUnit.Neutral;
     public UnitVSUnit vsNav  = UnitVSUnit.Neutral;
     // Start is called before the first frame update
-    void Start()
+    public BasicUnit(string unitName, string unitCost, UnitType unitType, AttackType attackType,
+        Weapons primaryWeapon, Weapons secundaryWeapon, int AmmoCapacity, MovimentType movimentType,
+        int movementPoints, int SupplyCapacity)
     {
-        
+
     }
 
     // Update is called once per frame
@@ -69,23 +73,39 @@ public class BasicUnit : MonoBehaviour
         //Calcular a distancia que pode ser percorrida pela unidade e mostrar ela no mapa
     }
 
-    private void Attack(BasicUnit attacker, BasicUnit defender, Weapons attackingWeapon, BasicTerrain battleField)
+    private void Attack(BasicUnit attacker, BasicUnit defender, Weapons attackingWeapon, BasicTerrain battlefield)
     {
         //A unidade realiza um ataque contra outra unidade
     }
 
     private void CounterAttack()
     {
-
+        //A unidade reliza um contra ataque contra outra
     }
 
     private void TakeDamage()
     {
-
+        //A unidade toma dano
     }
 
     private void CalcDamage()
     {
+        //Calcula o dano a ser causado
+    }
+
+    private void Selected()
+    {
 
     }
+
+    private void Unselected()
+    {
+
+    }
+
+    private void Death()
+    {
+
+    }
+
 }

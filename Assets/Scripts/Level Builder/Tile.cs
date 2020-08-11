@@ -13,8 +13,11 @@ public class Tile
 
     public enum TileType { Planice, Floresta, Montanha, Cidade, Estrada, Ponte, Pantano, BaseMilitar, Aeroporto, POrto, Oceano, Praia, Recife, Marbravo, Ruinas, TerraDevastada };
     public TileType tileType;
-
     public int tileRotation;
+
+    public BasicUnit unit;
+    public BasicTerrain terrain;
+
     //public string tileName = "Vazio";
     //public Sprite tileSprite;
     //public string specialEffect = "Vazio";
