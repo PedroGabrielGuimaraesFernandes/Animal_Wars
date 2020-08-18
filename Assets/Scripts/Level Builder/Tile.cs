@@ -11,31 +11,20 @@ public class Tile
     private int x;
     private int y;
 
-    public enum TileType { Planice, Floresta, Montanha, Cidade, Estrada, Ponte, Pantano, BaseMilitar, Aeroporto, POrto, Oceano, Praia, Recife, Marbravo, Ruinas, TerraDevastada };
+    public enum TileType { Planice, Floresta, Montanha, Cidade, Estrada, Ponte, Pantano, BaseMilitar, Aeroporto, Porto, Oceano, Praia, Recife, Marbravo, Ruinas, TerraDevastada };
     public TileType tileType;
     public int tileRotation;
 
     public BasicUnit unit;
     public BasicTerrain terrain;
 
-    //public string tileName = "Vazio";
-    //public Sprite tileSprite;
-    //public string specialEffect = "Vazio";
-    //public int[] movementCost = new int[3];
-    //public int[] defenseBonus = new int[3];
+
 
     public Tile(Grid<Tile> tileGrid, int x, int y)
     {
         this.grid = tileGrid;
         this.x = x;
         this.y = y;
-
-        /*this.tileType = tileType;
-        this.tileName = tileName;
-        this.tileSprite = tileSprite;
-        this.specialEffect = specialEffect;
-        this.movementCost = movementCost;
-        this.defenseBonus = defenseBonus;*/
     }
 
     public void SetTileType(TileType tileType)

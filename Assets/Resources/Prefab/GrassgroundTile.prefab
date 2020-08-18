@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3916624353487724729}
   - component: {fileID: 5315311256924250949}
+  - component: {fileID: -1617582280779311190}
   m_Layer: 0
   m_Name: GrassgroundTile
   m_TagString: Untagged
@@ -79,3 +80,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1617582280779311190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2179596943369119238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072de27e29c6a2a4e9634a4d36a6042c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainName: Planice
+  terrainDescription: kkkkkk
+  defInf: 0
+  defWM: 0
+  defAir: 0
+  defNav: -1
+  onFootCost: 0
+  whellsCost: 0
+  tracksCost: 0
+  airCost: 0
+  navCost: 0

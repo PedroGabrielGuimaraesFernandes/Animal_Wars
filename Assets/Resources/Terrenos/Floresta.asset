@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aadd9d3c632eac48890c24715cefb3d, type: 3}
+  m_Name: Floresta
+  m_EditorClassIdentifier: 
+  terrainName: Floresta
+  terrainDescription: Mata densa que premite que unidades se escondam
+  terrainPrefab: {fileID: 7029067690730064290, guid: d15964d550abb4a4d978c3834215a739,
+    type: 3}
+  walkableInf: 1
+  walkableWM: 1
+  walkableAir: 1
+  walkableNav: 0
+  defInf: 1
+  defWM: 3
+  defAir: 0
+  defNav: 0
+  onFootCost: 2
+  whellsCost: 2
+  tracksCost: 1
+  airCost: 1
+  navCost: 1
