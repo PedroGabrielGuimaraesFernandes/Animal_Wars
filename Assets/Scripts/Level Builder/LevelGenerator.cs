@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [Header("Tilemap Usado para montar o level")]
+    [Header("Imagem Usada para montar o level")]
     public Texture2D map;
+
+    [Header("Tilemap Usado para montar o level")]
+    public Tilemap tilemap;
 
     [Header("Referência da cor que representa cada prefab")]
     public ColorToPrefab[] colorMappings;
@@ -21,6 +25,7 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < map.height; y++)
             {
                 GenerateTile(x, y);
+                Debug.Log("x: " + x + " y: " + y + " Tem no grid Array");
             }
         }
     }
@@ -38,8 +43,10 @@ public class LevelGenerator : MonoBehaviour
         {
             if (colorMapping.color.Equals(pixelColor))
             {
-                Vector2 position = new Vector2(x, y);
-                Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
+                //Vector2 position = new Vector2(x, y);
+                Vector3Int position = new Vector3Int(x, y, 0);
+                //Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
+                tilemap.SetTile(position, colorMapping.ruleTile);
             }
         }
         //Debug.Log(pixelColor);

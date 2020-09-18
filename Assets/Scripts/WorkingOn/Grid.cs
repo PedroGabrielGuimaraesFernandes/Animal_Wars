@@ -44,10 +44,9 @@ public class Grid<TGridObject> {
                 gridArray[gridX, gridY] = createGridObject(this, gridX, gridY);
             }
         }
-
+        #region Grid lines drawing
         if (showDebug)
         {
-            TextMesh[,] debugTextArray = new TextMesh[width, height];
             //Parte de montagem do grid
             //passa por todos os elementos de colina
             for (int gridX = 0; gridX < gridArray.GetLength(0); gridX++)
@@ -55,20 +54,20 @@ public class Grid<TGridObject> {
                 //passa por todos os elementos de linha dentro da coluna
                 for (int gridY = 0; gridY < gridArray.GetLength(1); gridY++)
                 {
-                    //Cria dento da celula correspondente o texto e arruma ele para ficar no seu centro
-                    debugTextArray[gridX, gridY] = UsefulFunctions.CreateWorldText(gridArray[gridX, gridY]?.ToString(), null, GetWorldPosition(gridX, gridY) + new Vector3(cellSize, cellSize) * .5f, 20, Color.white, TextAnchor.MiddleCenter);
-                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX + 1, gridY), Color.white, 100f);
-                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX, gridY + 1), Color.white, 100f);
+                    //Cria dento da celula correspondente o texto e arruma ele para ficar no seu centro                    
+                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX + 1, gridY), Color.white, 10f);
+                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX, gridY + 1), Color.white, 10f);
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 10f);
+            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 10f);
 
             OnGridCellValueChanged += (object sender, OnGridCellValueChangedEventArgs eventArgs) =>
             {
-                debugTextArray[eventArgs.gridX, eventArgs.gridY].text = gridArray[eventArgs.gridX, eventArgs.gridY]?.ToString();
+               //Aguma coisa a ser feita
             };
         }
+        #endregion
     }
 
     public int GetWidth()
@@ -142,5 +141,61 @@ public class Grid<TGridObject> {
         return GetGridObject(x, y);
     }
 
-   
+   public void ResizeGridWithCellsize(int newWidth, int newHeight, int cellsize , Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
+    {
+
+        this.width = newWidth;
+        this.height = newHeight;
+        this.cellSize = cellsize;
+        TGridObject[,] tempGridArray = new TGridObject[newWidth, newHeight];
+
+        
+        for (int gridX = 0; gridX < tempGridArray.GetLength(0); gridX++)
+        {
+            //passa por todos os elementos de linha dentro da coluna
+            for (int gridY = 0; gridY < tempGridArray.GetLength(1); gridY++)
+            {
+
+                if (gridX < gridArray.GetLength(0) && gridY < gridArray.GetLength(1))
+                {
+                    tempGridArray[gridX, gridY] = gridArray[gridX, gridY];
+                }
+                else
+                {
+                    tempGridArray[gridX, gridY] = createGridObject(this, gridX, gridY);
+                }
+            }
+        }
+
+        gridArray = tempGridArray;
+
+        if (showDebug)
+        {
+            //TextMesh[,] debugTextArray = new TextMesh[width, height];
+            //Parte de montagem do grid
+            //passa por todos os elementos de colina
+            for (int gridX = 0; gridX < gridArray.GetLength(0); gridX++)
+            {
+                //passa por todos os elementos de linha dentro da coluna
+                for (int gridY = 0; gridY < gridArray.GetLength(1); gridY++)
+                {
+                    //Cria dento da celula correspondente o texto e arruma ele para ficar no seu centro
+                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX + 1, gridY), Color.white, 10f);
+                    Debug.DrawLine(GetWorldPosition(gridX, gridY), GetWorldPosition(gridX, gridY + 1), Color.white, 10f);
+                }
+            }
+            Debug.DrawLine(GetWorldPosition(0, newHeight), GetWorldPosition(width, height), Color.white, 10f);
+            Debug.DrawLine(GetWorldPosition(newWidth, 0), GetWorldPosition(width, height), Color.white, 10f);
+
+            OnGridCellValueChanged += (object sender, OnGridCellValueChangedEventArgs eventArgs) =>
+            {
+                //debugTextArray[eventArgs.gridX, eventArgs.gridY].text = gridArray[eventArgs.gridX, eventArgs.gridY]?.ToString();
+            };
+        }
+    }
+
+    public void ResizeGrid(int x, int y, Func<Grid<TGridObject>, int, int, TGridObject> createGridObject)
+    {
+        ResizeGridWithCellsize(x, y, (int)cellSize, createGridObject);
+    }
 }

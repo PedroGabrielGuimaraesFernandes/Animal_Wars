@@ -50,17 +50,8 @@ public class BasicUnit : MonoBehaviour
     public UnitVSUnit vsAir = UnitVSUnit.Neutral;
     public UnitVSUnit vsNav  = UnitVSUnit.Neutral;
     // Start is called before the first frame update
-    public BasicUnit(string unitName, string unitCost, UnitType unitType, AttackType attackType,
-        Weapons primaryWeapon, Weapons secundaryWeapon, int AmmoCapacity, MovimentType movimentType,
-        int movementPoints, int SupplyCapacity)
-    {
+    public BasicUnit(string unitName, string unitCost, UnitType unitType, AttackType attackType, Weapons primaryWeapon, Weapons secundaryWeapon, int AmmoCapacity, MovimentType movimentType, int movementPoints, int SupplyCapacity){
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void Move(Vector3 worldPos, Vector3 desiredPos)

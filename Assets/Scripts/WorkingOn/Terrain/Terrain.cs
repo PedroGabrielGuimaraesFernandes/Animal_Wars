@@ -1,8 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(fileName = "New Terrain", menuName = "Terrain")]
+
+[CreateAssetMenu(fileName = "New Terrain", menuName = "MyThings/Terrain", order = 1)]
 public class Terrain : ScriptableObject
 {
 
@@ -11,10 +14,13 @@ public class Terrain : ScriptableObject
 
     [Header("Prefab do terreno")]
     public GameObject terrainPrefab;
+    [Header("Tile do terreno")]
+    public TileBase terrainTile;
     [Header("Se o terreno é acessivel pelo tipo de unidade")]
     public bool walkableInf = true;
     public bool walkableWM = true;
     public bool walkableAir = true;
+
     public bool walkableNav = true;
 
     [Header("Defencibilidade do terreno para os diversos tipos de unidade")]
@@ -29,4 +35,11 @@ public class Terrain : ScriptableObject
     [Range(1, 4)] public int tracksCost = 1;
     [Range(1, 4)] public int airCost = 1;
     [Range(1, 4)] public int navCost = 1;
+
+
+    public TileBase GetTerrainTile()
+    {
+        return terrainTile;
+    }
+
 }

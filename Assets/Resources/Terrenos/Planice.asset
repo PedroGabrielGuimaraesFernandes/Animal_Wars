@@ -16,6 +16,7 @@ MonoBehaviour:
   terrainDescription: "Um terreno aberto que n\xE3o fornece prote\xE7\xE3o."
   terrainPrefab: {fileID: 2179596943369119238, guid: 4054349e51101cc42828b913678d37a1,
     type: 3}
+  terrainTile: {fileID: 11400000, guid: 6d94e3a4f2dc05243bb0f13cdd0050fa, type: 2}
   walkableInf: 1
   walkableWM: 1
   walkableAir: 1

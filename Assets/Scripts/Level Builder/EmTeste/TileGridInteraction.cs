@@ -8,7 +8,7 @@ using CodeMonkey.Utils;
 public class TileGridInteraction : MonoBehaviour
 {
     public int selectedTileIndex = 0;
-    private Tilemap tilemap;
+    private Tilemaps tilemap;
     [SerializeField] TilemapVisual tilemapVisual;
     [Header("Diz se alo se iniciar a cena ele deve desenhar o grid para referencia")] public bool showDebug = true;
     [Header("Largura dos grids")] public int width = 10;
@@ -20,7 +20,7 @@ public class TileGridInteraction : MonoBehaviour
     private void Start()
     {
 
-        tilemap = new Tilemap(width, height, cellSize, Vector3.zero, showDebug);
+        tilemap = new Tilemaps(width, height, cellSize, Vector3.zero, showDebug);
         tilemapVisual = GetComponent<TilemapVisual>();
         tilemapVisual.SetGrid(tilemap, tilemap.GetGrid());
     }
@@ -31,7 +31,7 @@ public class TileGridInteraction : MonoBehaviour
         {
             rotatePreview = true;
             int check = selectedTileIndex;
-            if (++check <= Enum.GetValues(typeof(Tile.TileType)).Length - 1)
+            if (++check <= Enum.GetValues(typeof(Tiles.TileType)).Length - 1)
                 selectedTileIndex++;
             else
                 selectedTileIndex = 0;
@@ -45,7 +45,7 @@ public class TileGridInteraction : MonoBehaviour
             if (--check >= 0)
                 selectedTileIndex--;
             else
-                selectedTileIndex = Enum.GetValues(typeof(Tile.TileType)).Length - 1;
+                selectedTileIndex = Enum.GetValues(typeof(Tiles.TileType)).Length - 1;
             rotValue = 0;
         }
 
@@ -78,10 +78,10 @@ public class TileGridInteraction : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 worldPos = UsefulFunctions.GetMouseWorldPosition();
-            Tile tile = tilemap.GetGrid().GetGridObject(worldPos);
+            Tiles tile = tilemap.GetGrid().GetGridObject(worldPos);
             if (tile != null) {
-            string enumm = Enum.GetName(typeof(Tile.TileType), 2);
-                tilemap.SetTilemapObjectSprite(worldPos, EnumHelper.GetEnumValue<Tile.TileType>(selectedTileIndex));
+            string enumm = Enum.GetName(typeof(Tiles.TileType), 2);
+                tilemap.SetTilemapObjectSprite(worldPos, EnumHelper.GetEnumValue<Tiles.TileType>(selectedTileIndex));
                 tilemap.SetTilemapObjectRotation(worldPos, rotValue);
             }
         }

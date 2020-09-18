@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [System.Serializable]
 public class ColorToPrefab
@@ -6,5 +7,6 @@ public class ColorToPrefab
     
     public Color color;
     public GameObject prefab;
+    public TileBase ruleTile;
 
 }

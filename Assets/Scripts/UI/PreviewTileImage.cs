@@ -34,7 +34,7 @@ public class PreviewTileImage : MonoBehaviour
         if (tileIndex != tileGridInteraction.selectedTileIndex)
         {
             tileIndex = tileGridInteraction.selectedTileIndex;
-            previewText.text = Enum.GetName(typeof(Tile.TileType), tileIndex);
+            previewText.text = Enum.GetName(typeof(Tiles.TileType), tileIndex);
             previewTileImage.sprite = previewSprite[tileIndex];
         }
 

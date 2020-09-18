@@ -24,7 +24,7 @@ public class UI_InputWindowManager : MonoBehaviour
         }, (string filename) => {
             //Clicou no ok
             //Aqui que eu quero por a função de save         
-            Tilemap.Static_Save_Overwrite(filename);
+            Tilemaps.Static_Save_Overwrite(filename);
             lastSaveName = filename;
             UI_Blocker.Hide_Static();
         });
@@ -40,7 +40,7 @@ public class UI_InputWindowManager : MonoBehaviour
         }, (string filename) => {
             //Clicou no ok
             //Aqui que eu quero por a função de save
-            Tilemap.Static_Save_Overwrite(filename);
+            Tilemaps.Static_Save_Overwrite(filename);
             lastSaveName = filename;
             UI_Blocker.Hide_Static();
         });
@@ -55,7 +55,7 @@ public class UI_InputWindowManager : MonoBehaviour
         }, (string filename) => {
             //Clicou no ok
             //Aqui que eu quero por a função de carregar  
-            Tilemap.Static_Load(filename);
+            Tilemaps.Static_Load(filename);
             lastLoadName = filename;
             UI_Blocker.Hide_Static();
         });
@@ -71,7 +71,7 @@ public class UI_InputWindowManager : MonoBehaviour
         }, (string filename) => {
             //Clicou no ok
             //Aqui que eu quero por a função de carregar  
-            Tilemap.Static_Load(filename);
+            Tilemaps.Static_Load(filename);
             lastLoadName = filename;
             UI_Blocker.Hide_Static();
         });

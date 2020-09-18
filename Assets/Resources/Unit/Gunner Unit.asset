@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf485ae85a627c418dfb1811b2fed52, type: 3}
+  m_Name: Gunner Unit
+  m_EditorClassIdentifier: 
+  unitName: Gunner
+  unitDescription: Bazooke the enemy vehicles
+  unitCost: 2000
+  unitMaxHP: 100
+  unitType: 0
+  attackType: 0
+  primaryWeapon: 2
+  secundaryWeapon: 1
+  AmmoCapacity: 3
+  AmmoCount: 0
+  movimentType: 0
+  movementPoints: 3
+  VisionDistance: 2
+  SupplyCapacity: 0
+  SupplyCount: 0
+  vsInfantary: 0
+  vsWarMachine: 2
+  vsAir: 3
+  vsNav: 3

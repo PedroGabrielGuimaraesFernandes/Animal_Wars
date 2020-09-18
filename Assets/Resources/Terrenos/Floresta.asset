@@ -16,6 +16,7 @@ MonoBehaviour:
   terrainDescription: Mata densa que premite que unidades se escondam
   terrainPrefab: {fileID: 7029067690730064290, guid: d15964d550abb4a4d978c3834215a739,
     type: 3}
+  terrainTile: {fileID: 11400000, guid: c7307e4a0282df84190aa2ba5c919454, type: 2}
   walkableInf: 1
   walkableWM: 1
   walkableAir: 1

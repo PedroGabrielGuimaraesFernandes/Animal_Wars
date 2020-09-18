@@ -8,7 +8,7 @@ public class TestingTilemap : MonoBehaviour
 {
     //private Grid<Tile> grid;
     public int testInt = 0;
-    private Tilemap tilemap;
+    private Tilemaps tilemap;
     [SerializeField] TilemapVisual tilemapVisual;
     [Header("Diz se alo se iniciar a cena ele deve desenhar o grid para referencia")]public bool showDebug = true;
     [Header("Largura dos grids")] public int width = 10;
@@ -18,7 +18,7 @@ public class TestingTilemap : MonoBehaviour
     private void Start()
     {
 
-        tilemap = new Tilemap(width, height, cellSize, Vector3.zero, showDebug);
+        tilemap = new Tilemaps(width, height, cellSize, Vector3.zero, showDebug);
 
         tilemapVisual.SetGrid(tilemap, tilemap.GetGrid());
     }
@@ -28,7 +28,7 @@ public class TestingTilemap : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             int check = testInt;
-            if (++check <= Enum.GetValues(typeof(Tile.TileType)).Length - 1)
+            if (++check <= Enum.GetValues(typeof(Tiles.TileType)).Length - 1)
                 testInt++;
             else
                 testInt = 0;           
@@ -39,14 +39,14 @@ public class TestingTilemap : MonoBehaviour
             if (--check >= 0)
                 testInt--;
             else
-                testInt = Enum.GetValues(typeof(Tile.TileType)).Length - 1;
+                testInt = Enum.GetValues(typeof(Tiles.TileType)).Length - 1;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 worldPos = UsefulFunctions.GetMouseWorldPosition();
-            string enumm = Enum.GetName(typeof(Tile.TileType), 2);
-            tilemap.SetTilemapObjectSprite(worldPos, EnumHelper.GetEnumValue<Tile.TileType>(testInt));            
+            string enumm = Enum.GetName(typeof(Tiles.TileType), 2);
+            tilemap.SetTilemapObjectSprite(worldPos, EnumHelper.GetEnumValue<Tiles.TileType>(testInt));            
         }
     }
 }

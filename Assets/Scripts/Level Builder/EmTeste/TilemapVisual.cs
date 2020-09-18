@@ -7,13 +7,13 @@ public class TilemapVisual : MonoBehaviour
 {
 
     //Referencia ao grid que vai ser usado
-    private Grid<Tile> grid;
+    private Grid<Tiles> grid;
     public bool updateMesh;
 
     public GameObject[] tilesPrefab;
 
     private int listIndex;
-    public List<Tile.TileType> tileTypesList = new List<Tile.TileType>();
+    public List<Tiles.TileType> tileTypesList = new List<Tiles.TileType>();
     [SerializeField]private GameObject[] tileObjects;
     private int totalCellCount;
 
@@ -33,7 +33,7 @@ public class TilemapVisual : MonoBehaviour
         }
     }
 
-    public void SetGrid(Tilemap tilemap, Grid<Tile> grid)
+    public void SetGrid(Tilemaps tilemap, Grid<Tiles> grid)
     {
         this.grid = grid;
         //totalCellCount = this.grid.GetWidth() * this.grid.GetHeight();
@@ -44,7 +44,7 @@ public class TilemapVisual : MonoBehaviour
         tilemap.OnLoaded += Grid_OnGridLoaded;
     }
 
-    public void Grid_OnGridCellValueChanged(object sender, Grid<Tile>.OnGridCellValueChangedEventArgs e)
+    public void Grid_OnGridCellValueChanged(object sender, Grid<Tiles>.OnGridCellValueChangedEventArgs e)
     {
         updateMesh = true;
     }
@@ -86,10 +86,10 @@ public class TilemapVisual : MonoBehaviour
 
                 // Pegar o valor do grid alterado                
                 //Debug.Log("tileTypesList.Count = " + tileTypesList.Count + ", totalCellCount = " + totalCellCount.ToString());
-                Tile currentTile = grid.GetGridObject(x, y);
+                Tiles currentTile = grid.GetGridObject(x, y);
                 if (tileTypesList.Count < totalCellCount)
                 {
-                    tileTypesList.Add(Tile.TileType.Planice);
+                    tileTypesList.Add(Tiles.TileType.Planice);
                     int enumIndex = (int)currentTile.tileType;
                     GameObject tileObject = Instantiate(tilesPrefab[enumIndex], grid.GetWorldPosition(x, y) + quadSize * .5f, Quaternion.identity);
                     tileObject.transform.localScale = new Vector3(tileObject.transform.localScale.x * grid.GetCellSize(), tileObject.transform.localScale.y * grid.GetCellSize(), 1);                    
