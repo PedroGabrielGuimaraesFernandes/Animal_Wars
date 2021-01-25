@@ -25,7 +25,6 @@ public class LevelGenerator : MonoBehaviour
             for (int y = 0; y < map.height; y++)
             {
                 GenerateTile(x, y);
-                Debug.Log("x: " + x + " y: " + y + " Tem no grid Array");
             }
         }
     }
@@ -43,10 +42,11 @@ public class LevelGenerator : MonoBehaviour
         {
             if (colorMapping.color.Equals(pixelColor))
             {
-                //Vector2 position = new Vector2(x, y);
-                Vector3Int position = new Vector3Int(x, y, 0);
-                //Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
-                tilemap.SetTile(position, colorMapping.ruleTile);
+                Vector2 position = new Vector2(x, y);
+                //Vector3Int position = new Vector3Int(x, y, 0);
+                Instantiate(colorMapping.prefab, position, Quaternion.identity, transform);
+                Debug.Log("x: " + x + " y: " + y + " Tem no grid Array");
+                //tilemap.SetTile(position, colorMapping.ruleTile);
             }
         }
         //Debug.Log(pixelColor);
